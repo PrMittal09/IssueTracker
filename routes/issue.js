@@ -24,14 +24,6 @@ mongoose.connect("mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/test?
   // Save database object from the callback for reuse.
   db = client.db();
   console.log("Database connection ready");
-
-var userSchema = new mongoose.Schema({
-	_id:Number,
-    description:String,
-	severity:String,
-	status:String,
-	created:Date,
-	resolved:Date,
 });
 
 router.get('/', function(req, res) {
