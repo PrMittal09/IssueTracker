@@ -12,7 +12,6 @@ router.use(function(req, res, next) {
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/issuetracker";
 const client = new MongoClient(uri, { useNewUrlParser: true });
-const db;
 client.connect(function(err,client) {
   const collection = client.db("issuetracker").collection("issues");
   // perform actions on the collection object
@@ -20,7 +19,6 @@ client.connect(function(err,client) {
 	console.log(err);
 	}
 // Save database object from the callback for reuse.
-  db = client.db();
   console.log("Database connection ready");
 });
 
