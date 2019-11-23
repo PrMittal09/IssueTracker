@@ -7,27 +7,26 @@ router.use(function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   next();
 });
-var mongoose = require('mongoose');
-//mongoose.Promise = global.Promise;
 
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
-
-// Connect to the database before starting the application server.
-mongoose.connect("mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/issuetracker", function (err, client) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-
-  // Save database object from the callback for reuse.
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/issuetracker";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+const db;
+client.connect(function(err,client) {
+  const collection = client.db("issuetracker").collection("issues");
+  // perform actions on the collection object
+  if(err){
+	console.log(err);
+	}
+// Save database object from the callback for reuse.
   db = client.db();
   console.log("Database connection ready");
 });
 
+
 router.get('/', function(req, res) {
-db.collection("issues").find({}, function(err, result) {
+collection.find({}, function(err, result) {
     if (err)
 		res.json(err);
     else
@@ -43,7 +42,7 @@ router.post('/addIssue', function(req, res) {
   issue.status= req.body.status;
   issue.created= req.body.created;
   issue.resolved= req.body.resolved;
-  db.collection("issues").create(issue, function (err, user) {
+  collection.create(issue, function (err, user) {
         if (err)
             res.send(err);
         else{
@@ -54,7 +53,7 @@ router.post('/addIssue', function(req, res) {
 
 
 router.put('/editIssue/:_id', function(req, res) {
-    db.collection("issues").findOneAndUpdate({ _id: req.params._id },
+    collection.findOneAndUpdate({ _id: req.params._id },
         { $set: { description : req.body.description,
 		severity : req.body.severity, 
 		status : req.body.status,
@@ -72,7 +71,7 @@ router.put('/editIssue/:_id', function(req, res) {
 
 
 router.delete('/deleteIssue/:_id', function(req, res) {
-    db.collection("issues").findOneAndRemove({ _id: req.params._id }, function (err, user) {
+    collection.findOneAndRemove({ _id: req.params._id }, function (err, user) {
         if (err)
             res.send(err);
         else
