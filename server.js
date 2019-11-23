@@ -6,11 +6,10 @@ var issue = require('./routes/issue');
 
 var app = express();
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: false }));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 
 app.use('/', index);
 app.use('/users', users);
