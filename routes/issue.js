@@ -8,7 +8,7 @@ router.use(function(req, res, next) {
   next();
 });
 var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+//mongoose.Promise = global.Promise;
 
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
