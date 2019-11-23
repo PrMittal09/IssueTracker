@@ -18,7 +18,6 @@ client.connect(function(err,client) {
   if(err){
 	console.log(err);
 	}
-// Save database object from the callback for reuse.
   console.log("Database connection ready");
 });
 
