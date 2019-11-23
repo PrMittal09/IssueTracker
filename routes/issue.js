@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
 var db;
 
 // Connect to the database before starting the application server.
-mongoose.connect("mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/test?retryWrites=true&w=majority" || "mongodb://localhost:27017/test", function (err, client) {
+mongoose.connect("mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/issuetracker", function (err, client) {
   if (err) {
     console.log(err);
     process.exit(1);
