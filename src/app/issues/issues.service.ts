@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class IssuesService {
-	private _issuesUrl = "http://localhost:3000/issue";
+	private _issuesUrl = "/issue";
     private httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'

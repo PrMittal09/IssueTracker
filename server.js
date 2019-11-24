@@ -11,7 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
-
+app.set('views', __dirname+"/views/");
+app.set('view engine', 'jade');
 app.use('/', index);
 app.use('/users', users);
 app.use('/issue', issue);
