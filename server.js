@@ -9,7 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
 
 app.use('/', index);
 app.use('/users', users);
