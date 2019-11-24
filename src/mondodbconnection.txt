@@ -8,3 +8,7 @@ mongodump --host Cluster0-shard-0/cluster0-shard-00-00-fwwel.mongodb.net:27017,c
 
 mongo "mongodb://cluster0-shard-00-00-fwwel.mongodb.net:27017,cluster0-shard-00-01-fwwel.mongodb.net:27017,cluster0-shard-00-02-fwwel.mongodb.net:27017/test?replicaSet=Cluster0-shard-0"  --authenticationDatabase admin  --username mongodb --password mongodb
 
+"engines": {
+"node": "5.0.0",
+"npm": "4.6.1"
+},
