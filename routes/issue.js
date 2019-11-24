@@ -7,33 +7,31 @@ router.use(function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   next();
 });
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/issuetracker?retryWrites=true&w=majority");
 
-
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(function(err,client) {
-	const db= client.db();
-   const collection = db.collection("issues");
-  // perform actions on the collection object
-  if(err){
-	console.log(err);
-	}
-	else{
-  console.log("Database connection ready");
-	}
+var userSchema = new mongoose.Schema({
+	_id:Number,
+    description:String,
+	severity:String,
+	status:String,
+	created:Date,
+	resolved:Date,
 });
 
+var User = mongoose.model('issues', userSchema);
 
 router.get('/', function(req, res) {
-collection.find({}, function(err, result) {
-    if (err)
-		res.json(err);
-    else
-		res.json(result);
+User.find({}, function(err, result) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
 	});
 	});
-
+	
 router.post('/addIssue', function(req, res) {
   var issue = {};
   issue._id=req.body._id;
@@ -42,10 +40,10 @@ router.post('/addIssue', function(req, res) {
   issue.status= req.body.status;
   issue.created= req.body.created;
   issue.resolved= req.body.resolved;
-  collection.create(issue, function (err, user) {
-        if (err)
+  User.create(issue, function (err, user) {
+        if (err){
             res.send(err);
-        else{
+        } else{
             res.json(user);
 		}
     });
@@ -53,7 +51,7 @@ router.post('/addIssue', function(req, res) {
 
 
 router.put('/editIssue/:_id', function(req, res) {
-    collection.findOneAndUpdate({ _id: req.params._id },
+    User.findOneAndUpdate({ _id: req.params._id },
         { $set: { description : req.body.description,
 		severity : req.body.severity, 
 		status : req.body.status,
@@ -71,7 +69,7 @@ router.put('/editIssue/:_id', function(req, res) {
 
 
 router.delete('/deleteIssue/:_id', function(req, res) {
-    collection.findOneAndRemove({ _id: req.params._id }, function (err, user) {
+    User.findOneAndRemove({ _id: req.params._id }, function (err, user) {
         if (err)
             res.send(err);
         else

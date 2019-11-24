@@ -9,14 +9,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-var distDir = __dirname + "/dist/";
+var distDir = __dirname + "/dist/issuetracker/";
 app.use(express.static(distDir));
 app.set('views', __dirname+"/views/");
 app.set('view engine', 'jade');
 app.use('/', index);
 app.use('/users', users);
 app.use('/issue', issue);
-
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  next();
+});
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
