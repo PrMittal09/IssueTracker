@@ -13,13 +13,15 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(function(err,client) {
-	const db= client.db("issuetracker");
+	const db= client.db();
    const collection = db.collection("issues");
   // perform actions on the collection object
   if(err){
 	console.log(err);
 	}
+	else{
   console.log("Database connection ready");
+	}
 });
 
 
