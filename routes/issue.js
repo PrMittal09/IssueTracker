@@ -10,10 +10,11 @@ router.use(function(req, res, next) {
 
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/issuetracker?retryWrites=true&w=majority";
+const uri = "mongodb+srv://mongodb:mongodb@cluster0-fwwel.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(function(err,client) {
-  const collection = client.db("issuetracker").collection("issues");
+	const db= client.db("issuetracker");
+   const collection = db.collection("issues");
   // perform actions on the collection object
   if(err){
 	console.log(err);
