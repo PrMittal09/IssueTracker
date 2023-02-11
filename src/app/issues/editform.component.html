@@ -1,0 +1,60 @@
+<div class="container">
+<br/><br/>
+  <h3><b>Edit Issue</b></h3><br/>
+  <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
+  	    <div class="form-group">
+      <label for="desc">ID</label>
+	  <input class="form-control" id="_id" name="_id" [ngModel]="_id" disabled/>
+    </div>
+  
+    <div class="form-group">
+      <label for="desc">Description</label>
+      <textarea class="form-control" id="desc" name="desc" [ngModel]="desc" required placeholder="Enter Description" #descRef_1="ngModel"></textarea>
+	  <div *ngIf="descRef_1.invalid && (descRef_1.dirty || descRef_1.touched)" class="alert alert-danger">
+      <div *ngIf="descRef_1.errors.required">
+          Description is required.
+        </div>
+	</div>
+    </div>
+	    <div class="form-group">
+      <label for="severity">Severity</label>
+	  <select class="form-control" id="severity" name="severity" [ngModel]="severity" required #descRef_2="ngModel">
+	       <option>Minor</option>
+			<option>Major</option>
+			<option>Critical</option></select>
+	 <div *ngIf="descRef_2.invalid && (descRef_2.dirty || descRef_2.touched)" class="alert alert-danger">
+      <div *ngIf="descRef_2.errors.required">
+          Severity is required.
+        </div>
+	</div>
+    </div>
+	    <div class="form-group">
+      <label for="stat">Status</label>
+      <select class="form-control" id="stat" name="stat" [ngModel]="stat" required #descRef_3="ngModel">
+	  	    <option>Open</option>
+			<option>In Progress</option>
+			<option>Closed</option></select>
+	  <div *ngIf="descRef_3.invalid && (descRef_3.dirty || descRef_3.touched)" class="alert alert-danger">
+      <div *ngIf="descRef_3.errors.required">
+          Status is required.
+        </div>
+	</div>
+    </div>
+	
+	    <div class="form-group">
+      <label for="created">Created Date</label>
+      <input class="form-control" type="date" id="created" name="created" [ngModel]="created" required placeholder="Enter Created Date" #descRef_4="ngModel"/>
+	  <div *ngIf="descRef_4.invalid && (descRef_4.dirty || descRef_4.touched)" class="alert alert-danger">
+      <div *ngIf="descRef_4.errors.required">
+          Created Date is required.
+        </div>
+	</div>
+    </div>
+	 
+	 <div class="form-group">
+      <label for="resolved">Resolved Date</label>
+      <input class="form-control" type="date" id="resolved" name="resolved" [ngModel]="resolved" placeholder="Enter Resolved Date"/>
+    </div>
+    <button type="submit" class="btn btn-info" [disabled]="formRef.invalid">Submit</button>
+  </form>
+</div>

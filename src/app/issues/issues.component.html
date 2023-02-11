@@ -1,0 +1,63 @@
+<div class="container" style="background-color:lightblue;">
+  <div style="text-align:center;margin-top:1rem;padding-top:0.5rem;padding-bottom: 0.5rem;">
+    <h3>
+      Welcome to Issue Component
+    </h3>
+  </div>
+ 
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-3">
+              <label for="text"><h4><b>Filter by Description:</b></h4></label>
+            </div>
+            <div class="col-lg-9">
+              <p><input type="text" id="text" [(ngModel)]="searchFilter" placeholder="Search By Issue Description" /></p>
+            </div>
+    </div>
+  </div><br/>
+  <div class="row">
+    <div class="col-lg-3">
+      <label for="text"><h4><b>Filter by Fields:</b></h4></label>
+    </div>
+    <div class="col-lg-12">
+      <span *ngFor='let f of fields' class="col-lg-2">
+        <label for="{{f}}"><b>{{f}}</b></label>
+        <input type="checkbox" checked [disabled]="f==='ID'" value="{{f}}" (click)="myList($event)"/>
+      </span>
+    </div>
+  </div><br/>
+  <div class="table-responsive col-lg-12">
+    <table class="table">
+      <thead>
+        <tr class="active">
+          <th class="col-lg-1">ID</th>
+          <th class="col-lg-2" *ngIf="needed('Description')" >Description</th>
+          <th class="col-lg-1" *ngIf="needed('Severity')">Severity</th>
+          <th class="col-lg-1" *ngIf="needed('Status')">Status</th>
+          <th class="col-lg-3" *ngIf="needed('Created At')">Created At</th>
+          <th class="col-lg-3" *ngIf="needed('Resolved At')">Resolved At</th>
+          <th class="col-lg-2">Action</th>		
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let issue of issues | issueFilter: searchFilter' class="success">
+          <td class="col-lg-1"><input type="checkbox" name="check" value="default" (click)="checkData($event,issue._id)">{{issue._id}}</td>
+          <td class="col-lg-2" *ngIf="needed('Description')">{{ issue.description }}</td>
+          <td class="col-lg-1" *ngIf="needed('Severity')">{{ issue.severity }}</td>
+          <td class="col-lg-1" *ngIf="needed('Status')">{{ issue.status }}</td>
+          <td class="col-lg-3" *ngIf="needed('Created At')">{{ issue.created}}</td>
+          <td class="col-lg-3" *ngIf="needed('Resolved At')">{{ issue.resolved}}</td>
+          <td class="col-lg-2">
+            <button class="btn btn-success"><a [routerLink]="['/editIssue',issue._id]">Edit</a></button>
+            <button class="btn btn-danger" (click)="deleteIssueid(issue._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table><br/>
+    <div class="col-lg-12" style="text-align:center">
+      <button class="btn btn-primary"><a routerLink="/addIssue" style="color:white;">Add Issue</a></button>
+      <button class="btn btn-danger" (click)="deleteIssue($event)" value="delete">Delete</button>
+    </div><br/><br/>
+  </div>
+
+</div>
